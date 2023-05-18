@@ -1,6 +1,8 @@
 package com.lofstudio.listadelivros.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,18 +14,18 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.leonardofazanaro.test_insait.R
-import com.leonardofazanaro.test_insait.domain.GHUsers
+import com.leonardofazanaro.test_insait.domain.GHRepo
 import com.lofstudio.minhascolecoes.interfaces.RecyclerViewButtonOnClickListener
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 
-class GHUserAdapter(
+class GHRepoAdapter(
 
     context: Context,
-    private var mlist: MutableList<GHUsers>) :
+    private var mlist: MutableList<GHRepo>) :
 
-    RecyclerView.Adapter<GHUserAdapter.MyViewHolder>() {
+    RecyclerView.Adapter<GHRepoAdapter.MyViewHolder>() {
 
 
     private val context: Context
@@ -44,7 +46,7 @@ class GHUserAdapter(
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolder {
-        val layout = R.layout.item_gh_user
+        val layout = R.layout.item_gh_repo
         val v = mLayoutInflater.inflate(layout, parent, false)
         return MyViewHolder(v)
     }
@@ -52,41 +54,18 @@ class GHUserAdapter(
     override fun onBindViewHolder(myViewHolder: MyViewHolder, position: Int) {
 
 
-        myViewHolder.txtName.text = "${mlist[position].login}"
+        myViewHolder.txtName.text = "${mlist[position].name}"
 
-
-
-        if (mlist[position].avatar_url!!.isEmpty()) {
-
-            myViewHolder.imgUser.setImageResource(R.drawable.no_user)
-
-            myViewHolder.imgUser.setColorFilter(context.resources.getColor(R.color.grey))
-
-            // myViewHolder.imgProgress.setVisibility(View.GONE)
-
-
-
-        } else {
-
-            myViewHolder.imgUser.setColorFilter(null)
-
-            Picasso.get()
-                .load(mlist[position].avatar_url).resize(120, 120)
-                .centerCrop().into(myViewHolder.imgUser, object : Callback {
-                    override fun onSuccess() {
-
-                        // myViewHolder.imgProgress.setVisibility(View.GONE)
-                    }
-
-                    override fun onError(ex: Exception) {
-
-                    }
-                })
-
-
+        if(mlist[position].description != null){
+            myViewHolder.txtDescription.text = "${mlist[position].description}"
         }
 
 
+
+        myViewHolder.txtLanguage.text = "${mlist[position].language}"
+        myViewHolder.txtStars.text = "${mlist[position].stargazers_count}"
+        myViewHolder.txtForks.text = "${mlist[position].forks_count}"
+        myViewHolder.txtwatchers.text = "${mlist[position].watchers_count}"
 
 
 
@@ -98,15 +77,12 @@ class GHUserAdapter(
         }
 
 
-        myViewHolder.card.setOnLongClickListener(object : View.OnLongClickListener {
+        myViewHolder.card.setOnClickListener { view ->
 
-            override fun onLongClick(view: View): Boolean {
-                if (recyclerViewButtonOnClickListener != null) {
-                    recyclerViewButtonOnClickListener!!.onLongClickListener(view, position, mlist[position])
-                }
-                return true
-            }
-        })
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(mlist[position]!!.html_url))
+            )
+        }
+
 
     }
 
@@ -115,7 +91,7 @@ class GHUserAdapter(
         return mlist.size
     }
 
-    fun addItem(item: GHUsers) {
+    fun addItem(item: GHRepo) {
         mlist.add(item)
         notifyDataSetChanged()
     }
@@ -124,7 +100,7 @@ class GHUserAdapter(
         this.recyclerViewButtonOnClickListener = recyclerViewButtonOnClickListener
     }
 
-    fun submitList(it: MutableList<GHUsers>) {
+    fun submitList(it: MutableList<GHRepo>) {
 
         mlist = it
         notifyDataSetChanged()
@@ -133,15 +109,24 @@ class GHUserAdapter(
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var card: CardView
+        var btnGitHub: CardView
         var txtName: TextView
-        var imgUser: ImageView
-
+        var txtDescription: TextView
+        var txtLanguage: TextView
+        var txtStars: TextView
+        var txtForks: TextView
+        var txtwatchers: TextView
 
 
         init {
-            imgUser = itemView.findViewById<View>(R.id.imgUser) as ImageView
             txtName = itemView.findViewById<View>(R.id.txtName) as TextView
+            txtDescription = itemView.findViewById<View>(R.id.txtDescription) as TextView
+            txtLanguage = itemView.findViewById<View>(R.id.txtLanguage) as TextView
+            txtStars = itemView.findViewById<View>(R.id.txtStars) as TextView
+            txtForks = itemView.findViewById<View>(R.id.txtForks) as TextView
+            txtwatchers = itemView.findViewById<View>(R.id.txtwatchers) as TextView
             card = itemView.findViewById<View>(R.id.card) as CardView
+            btnGitHub = itemView.findViewById<View>(R.id.btnGitHub) as CardView
         }
     }
 }

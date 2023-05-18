@@ -10,8 +10,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -32,7 +34,6 @@ class GHUserListActivity : AppCompatActivity(), RecyclerViewButtonOnClickListene
     var lyData: LinearLayout? =null
     var lyEmpty: LinearLayout? =null
     var txtEmpty: TextView? =null
-
 
     var recyclerview: RecyclerView? = null
 
@@ -57,8 +58,9 @@ class GHUserListActivity : AppCompatActivity(), RecyclerViewButtonOnClickListene
         lyEmpty= findViewById(R.id.lyEmpty)
         txtEmpty= findViewById(R.id.txtEmpty)
 
+
         recyclerview = findViewById(R.id.recyclerview)
-        recyclerview!!.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        recyclerview!!.layoutManager = GridLayoutManager(this@GHUserListActivity,2)
 
 
 
@@ -107,11 +109,6 @@ class GHUserListActivity : AppCompatActivity(), RecyclerViewButtonOnClickListene
             if (it) {
 
                 Toast.makeText(this@GHUserListActivity, "${viewModel!!.errorText}" , Toast.LENGTH_SHORT).show()
-
-            } else {
-
-                Toast.makeText(this@GHUserListActivity, "Tudo ok" , Toast.LENGTH_SHORT).show()
-
 
             }
         }
@@ -162,15 +159,14 @@ class GHUserListActivity : AppCompatActivity(), RecyclerViewButtonOnClickListene
     }
 
     override fun onClickListener(view: View?, position: Int, `object`: Any?) {
-        /*
+
               val item: GHUsers? = `object` as GHUsers?
 
-
-              var bookIntent = Intent(baseContext,BookDetailsActivity::class.java)
-              bookIntent.putExtra("jsonItem",Gson().toJson(item))
+              var bookIntent = Intent(baseContext,GHUserViewActivity::class.java)
+              bookIntent.putExtra("jsonData",Gson().toJson(item))
               startActivity(bookIntent)
 
-              */
+
 
     }
 
