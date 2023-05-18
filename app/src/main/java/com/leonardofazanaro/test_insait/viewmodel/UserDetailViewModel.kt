@@ -27,11 +27,7 @@ open class UserDetailViewModel(val userLogin: String) {
         get() = _ghUserDetail
 
     private val _error = MutableLiveData<Boolean>(true)
-    val error = Transformations.map(_error) { !it }
-
-
-    private val _isLoading = MutableLiveData<Boolean>(true)
-    val isLoading = Transformations.map(_isLoading) { !it }
+    val error = Transformations.map(_error) { it }
 
 
     private var _errorText = MutableLiveData<String>()

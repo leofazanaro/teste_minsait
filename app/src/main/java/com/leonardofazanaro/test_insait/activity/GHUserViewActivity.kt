@@ -1,5 +1,6 @@
 package com.leonardofazanaro.test_insait.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,6 +23,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.Gson
 import com.leonardofazanaro.test_insait.R
 import com.leonardofazanaro.test_insait.domain.GHUsers
+import com.leonardofazanaro.test_insait.util.CustomAlert
 import com.leonardofazanaro.test_insait.viewmodel.RepoViewModel
 import com.leonardofazanaro.test_insait.viewmodel.UserDetailViewModel
 import com.lofstudio.listadelivros.adapter.GHRepoAdapter
@@ -214,11 +216,21 @@ class GHUserViewActivity : AppCompatActivity(),RecyclerViewButtonOnClickListener
                 })
 
                 viewModel!!.error.observe(this) {
-                    if (it) {
 
-                        Toast.makeText(this@GHUserViewActivity, "${viewModel!!.errorText}" , Toast.LENGTH_SHORT).show()
+                    if(it){
+
+                        lyRefresh!!.isRefreshing = false
+
+                        CustomAlert.menssage(this@GHUserViewActivity,
+                            "Algo deu errado",
+                            "Não foi possivel carregar os dados.\n\nTente novamente mais tarde.","OK,FECHAR",
+                            DialogInterface.OnClickListener { dialog, which ->
+
+                                finish()
+                            },false)
 
                     }
+
                 }
 
 

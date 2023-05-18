@@ -1,9 +1,11 @@
 package com.leonardofazanaro.test_insait.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -20,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.Gson
 import com.leonardofazanaro.test_insait.R
 import com.leonardofazanaro.test_insait.domain.GHUsers
+import com.leonardofazanaro.test_insait.util.CustomAlert
 import com.leonardofazanaro.test_insait.viewmodel.UsersViewModel
 import com.lofstudio.listadelivros.adapter.GHUserAdapter
 import com.lofstudio.minhascolecoes.interfaces.RecyclerViewButtonOnClickListener
@@ -106,11 +109,21 @@ class GHUserListActivity : AppCompatActivity(), RecyclerViewButtonOnClickListene
 
 
         viewModel!!.error.observe(this) {
-            if (it) {
 
-                Toast.makeText(this@GHUserListActivity, "${viewModel!!.errorText}" , Toast.LENGTH_SHORT).show()
+            if(it){
+
+                lyRefresh!!.isRefreshing = false
+
+                CustomAlert.menssage(this@GHUserListActivity,
+                    "Algo deu errado",
+                    "Não foi possivel carregar os dados.\n\nTente novamente mais tarde.","OK,FECHAR",
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        finish()
+                    },false)
 
             }
+
         }
 
 

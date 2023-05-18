@@ -28,12 +28,8 @@ open class UsersViewModel {
     val listGHUsers: LiveData<MutableList<GHUsers>>
         get() = _listGHUsers
 
-    private val _error = MutableLiveData<Boolean>(true)
-    val error = Transformations.map(_error) { !it }
-
-
-    private val _isLoading = MutableLiveData<Boolean>(true)
-    val isLoading = Transformations.map(_isLoading) { !it }
+    private val _error = MutableLiveData<Boolean>(false)
+    val error = Transformations.map(_error) { it }
 
 
     private var _errorText = MutableLiveData<String>()
@@ -72,7 +68,7 @@ open class UsersViewModel {
 
                     //ERRO
                     _error.postValue(true)
-                    _errorText.postValue("Erro ao carregar a lista.\n\nTente novamente mais tarde")
+                    _errorText.postValue("Erro ao carregar a lista.")
 
                 }
 
@@ -87,7 +83,7 @@ open class UsersViewModel {
                 Log.e("lof_log","${t.message}")
                 //ERRO
                 _error.postValue(true)
-                _errorText.postValue("Erro ao carregar a lista.\n\nTente novamente mais tarde")
+                _errorText.postValue("${t.message}")
 
             }
 

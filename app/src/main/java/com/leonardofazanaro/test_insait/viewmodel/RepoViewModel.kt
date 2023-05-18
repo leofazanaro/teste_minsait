@@ -23,12 +23,9 @@ open class RepoViewModel(val userLogin: String) {
     val listGHRepo: LiveData<MutableList<GHRepo>>
         get() = _listGHRepo
 
-    private val _error = MutableLiveData<Boolean>(true)
-    val error = Transformations.map(_error) { !it }
+    private val _error = MutableLiveData<Boolean>(false)
+    val error = Transformations.map(_error) { it }
 
-
-    private val _isLoading = MutableLiveData<Boolean>(true)
-    val isLoading = Transformations.map(_isLoading) { !it }
 
 
     private var _errorText = MutableLiveData<String>()
