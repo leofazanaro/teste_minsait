@@ -7,5 +7,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#909090</color>
     <color name="purple">#9400FF</color>
+    <color name="red">#ff0000</color>
 
 </resources>
