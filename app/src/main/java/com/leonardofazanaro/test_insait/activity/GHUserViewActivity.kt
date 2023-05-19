@@ -159,9 +159,18 @@ class GHUserViewActivity : AppCompatActivity(),RecyclerViewButtonOnClickListener
 
                 userDetailViewModel.ghUserDetail.observe(this, Observer {
 
-                    txtName!!.text = "${it!!.name!!}"
-                    txtCountRepos!!.text = "${it!!.public_repos!!}"
-                    txtCountGits!!.text = "${it!!.public_gists!!}"
+                    if(it != null){
+
+                        if(it.name != null){
+
+                            txtName!!.text = "${it.name}"
+                        }
+
+                        txtCountRepos!!.text = "${it.public_repos}"
+                        txtCountGits!!.text = "${it.public_gists}"
+                    }
+
+
                 })
 
 

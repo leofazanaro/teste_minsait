@@ -80,6 +80,9 @@ class GHUserAdapter(
 
                     override fun onError(ex: Exception) {
 
+                        myViewHolder.imgUser.setImageResource(R.drawable.no_user)
+
+                        myViewHolder.imgUser.setColorFilter(context.resources.getColor(R.color.grey))
                     }
                 })
 
