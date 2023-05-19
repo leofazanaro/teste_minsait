@@ -50,12 +50,12 @@ open class RepoViewModel(val userLogin: String) {
 
                 val data = response.body()
 
-                Log.w("lof_log",data.toString())
-
-
+                //VERICA SE EXISTEM DADOS NA RESPOTA
                 if(data != null){
 
+                    //GUARDA TODOS OS DADOS EM UMA LISTA COMPLETA QUE SERÁ USADA COMO BASE NA BUSCAS MAIS TARDE
                     fullList = (data as MutableList<GHRepo>?)
+                    //MANDA A LISTA COMPLETA PARA A TELA PARA SER EXIBIDA PARA O USUARIO
                     _listGHRepo.postValue(fullList as MutableList<GHRepo>)
 
 
@@ -87,10 +87,13 @@ open class RepoViewModel(val userLogin: String) {
 
     }
 
-
+//METODO RESPOSAVEL POR FILTRAR A LISTA BASEADO LOGIN DO USUARIO
     fun search(src: String) {
 
-        if (src.isEmpty()) {
+
+
+    //CASO O INPUT SEJA VAZIO A LISTA É RECARREGADA NOVAMENTE
+    if (src.isEmpty()) {
 
 
             loadData()
@@ -99,6 +102,7 @@ open class RepoViewModel(val userLogin: String) {
 
 
 
+            //CASO NAO, A LISTA COMPLETA É FILTRADA BASEADA NO INPUT DO USUARIO
 
             var fiterList = fullList!!.filter {
 

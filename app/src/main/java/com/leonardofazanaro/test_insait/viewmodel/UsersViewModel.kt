@@ -42,10 +42,10 @@ open class UsersViewModel {
 
         Log.w("lof_log","load data")
 
-
         val WS_URL_BASE = "https://api.github.com/"
 
         val retrofitClient = NetworkUtil.getRetrofitInstance(WS_URL_BASE)
+
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
         endpoint.getUsers().enqueue(object : retrofit2.Callback<List<GHUsers>> {
@@ -54,13 +54,13 @@ open class UsersViewModel {
 
                 val data = response.body()
 
-                Log.w("lof_log",data.toString())
-
-
-
+               //VERICA SE EXISTEM DADOS NA RESPOTA
                 if(data != null){
 
+                    //GUARDA TODOS OS DADOS EM UMA LISTA COMPLETA QUE SERÁ USADA COMO BASE NA BUSCAS MAIS TARDE
                     fullList = (data as MutableList<GHUsers>?)
+
+                    //MANDA A LISTA COMPLETA PARA A TELA PARA SER EXIBIDA PARA O USUARIO
                     _listGHUsers.postValue(fullList as MutableList<GHUsers>)
 
 
@@ -92,8 +92,10 @@ open class UsersViewModel {
 
     }
 
+    //METODO RESPOSAVEL POR FILTRAR A LISTA BASEADO LOGIN DO USUARIO
     fun search(src: String) {
 
+        //CASO O INPUT SEJA VAZIO A LISTA É RECARREGADA NOVAMENTE
         if (src.isEmpty()) {
 
 
@@ -102,11 +104,11 @@ open class UsersViewModel {
         } else {
 
 
-
+            //CASO NAO, A LISTA COMPLETA É FILTRADA BASEADA NO INPUT DO USUARIO
 
             var fiterList = fullList!!.filter {
 
-                it.login!!.lowercase(Locale.ROOT).contains(src.lowercase(Locale.ROOT)) // || it.id!!.lowercase(Locale.ROOT).contains(src.lowercase(Locale.ROOT))
+                it.login!!.lowercase(Locale.ROOT).contains(src.lowercase(Locale.ROOT))
             }
 
             _listGHUsers.postValue(fiterList as MutableList<GHUsers>)

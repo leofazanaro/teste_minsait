@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.Gson
 import com.leonardofazanaro.test_insait.R
+import com.leonardofazanaro.test_insait.domain.GHRepo
 import com.leonardofazanaro.test_insait.domain.GHUsers
 import com.leonardofazanaro.test_insait.util.CustomAlert
 import com.leonardofazanaro.test_insait.viewmodel.RepoViewModel
@@ -264,6 +265,13 @@ class GHUserViewActivity : AppCompatActivity(),RecyclerViewButtonOnClickListener
     }
 
     override fun onActionClick(view: View?, position: Int, `object`: Any?, button: Int) {
+
+        val item: GHRepo? = `object` as GHRepo?
+
+        if(button == 1){
+
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item!!.html_url)))
+        }
 
     }
 }

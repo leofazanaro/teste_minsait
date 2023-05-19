@@ -32,13 +32,16 @@ class GHUserListActivity : AppCompatActivity(), RecyclerViewButtonOnClickListene
 
 
     var edtSearch: EditText? =null
+
     var lyRefresh: SwipeRefreshLayout? =null
     var lyNest: NestedScrollView? =null
     var lyData: LinearLayout? =null
     var lyEmpty: LinearLayout? =null
+
     var txtEmpty: TextView? =null
 
     var recyclerview: RecyclerView? = null
+
 
 
     var viewModel: UsersViewModel? = null
@@ -104,6 +107,7 @@ class GHUserListActivity : AppCompatActivity(), RecyclerViewButtonOnClickListene
             lyRefresh!!.isRefreshing = false
 
         })
+
 
 
 

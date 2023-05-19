@@ -69,18 +69,11 @@ class GHRepoAdapter(
 
 
 
-        myViewHolder.card.setOnClickListener { view ->
-            if (recyclerViewButtonOnClickListener != null) {
+        myViewHolder.btnGitHub.setOnClickListener { view ->
 
-                recyclerViewButtonOnClickListener!!.onClickListener(view, position, mlist[position])
+            if(recyclerViewButtonOnClickListener != null){
+                recyclerViewButtonOnClickListener!!.onActionClick(view,position,mlist[position],1)
             }
-        }
-
-
-        myViewHolder.card.setOnClickListener { view ->
-
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(mlist[position]!!.html_url))
-            )
         }
 
 

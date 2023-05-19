@@ -51,13 +51,11 @@ open class UserDetailViewModel(val userLogin: String) {
 
 
                 val data = response.body()
-
-                Log.w("lof_log",data.toString())
-
-
+                //VERICA SE EXISTEM DADOS NA RESPOTA
 
                 if(data != null){
 
+                    //MANDA OS DADOS OBTIDOS PARA A ACTIVITY
                     _ghUserDetail.postValue(data)
 
 
